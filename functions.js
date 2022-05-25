@@ -9,7 +9,9 @@ function applyUpgrades(clicks, clickBoost){
   return clicks;
 }
 
-function getCookie(cname) { // cookie stuff... stol- i mean borrowed from w3schools
+function getCookie(cname, type) { // cookie stuff... stol- i mean borrowed from w3schools
+  if (!type) throw new Error("No type was passed to getCookie!");
+
   let name = cname + "=";
   let ca = document.cookie.split(';');
   for(let i = 0; i < ca.length; i++) {
@@ -18,7 +20,22 @@ function getCookie(cname) { // cookie stuff... stol- i mean borrowed from w3scho
       c = c.substring(1);
     }
     if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
+      let ret = c.substring(name.length, c.length);
+      switch (type) {
+        case String: {
+          return ret;
+          break;
+        }
+        case Number: {
+          return Number(ret);
+          break;
+        }
+        
+        case Boolean: {
+          return ret.toLowerCase() === 'true'
+          break;
+        }
+      }
     }
   }
   return "";
