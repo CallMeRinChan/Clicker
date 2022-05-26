@@ -22,13 +22,13 @@ document.getElementById("upgradeButton").addEventListener("click", () => {
   if(clicks >= clickPrice){ // if you have more or same amount of clicks as the price
     clickPrice = clickPrice + (clickPrice/100*20); // increase the price by 20%
     clicks = clicks - Math.floor(clickPrice); // subtract the price from the clicks
-    document.getElementById("upgradeButton").innerHTML = "Upgrade. Cost: " + clickPrice; // update the price in the button
+    document.getElementById("upgradeButton").innerHTML = "Upgrade. Cost: " + Math.floor(clickPrice); // update the price in the button
     document.getElementById("clickBox").innerHTML = clicks; // update the clicks in the h1
     clickBoost++; // increase clickBoost by 1
 
     document.cookie = `cums=${clicks};expires=Sun, 09 2069 00:04:20 UTC`;
     document.cookie = `cumgrades=${clickBoost};expires=Sun, 09 Jun 2069 00:04:20 UTC`; // put the upgrades in a cookie for saving it
-    document.cookie = `clickCost=${clickPrice};expires=Sun, 09 Jun 2069 00:04:20 UTC`; // put the clickPrice in a cookie for saving it
+    document.cookie = `clickCost=${Math.floor(clickPrice)};expires=Sun, 09 Jun 2069 00:04:20 UTC`; // put the clickPrice in a cookie for saving it
   }
 })
 
