@@ -5,11 +5,11 @@
 <button id="upgradeButton"> Upgrade </button>
 
 <script>
-var clicks = Number(getCookie("cums")) ? Number(getCookie("cums")) : 0; // if the cookie exists, use that... otherwise be 0
-var clickBoost = Number(getCookie("cumgrades")) ? Number(getCookie("cumgrades")) : 1; // if the cookie exists, use that... otherwise be 1
-var clickPrice = Number(getCookie("cumgrades")) ? Number(getCookie("cumgrades")) : 10; // if the cookie exists, use that... otherwise be 10
+let clicks = getCookie("cums", Number) ? getCookie("cums", Number) : 0; // if the cookie exists, use that... otherwise be 0
+let clickBoost = getCookie("cumgrades", Number) ? getCookie("cumgrades", Number) : 1; // if the cookie exists, use that... otherwise be 1
+let clickPrice = getCookie("cumgrades", Number) ? getCookie("cumgrades", Number) : 10; // if the cookie exists, use that... otherwise be 10
 document.getElementById("clickBox").innerHTML = clicks; // put the amount of collected clicks in the clickBox
-document.getElementById("upgradeButton").innerHTML = "Upgrade. Cost: " + math.floor(clickPrice); // put the clickPRice in the upgradeButton
+document.getElementById("upgradeButton").innerHTML = "Upgrade. Cost: " + Math.floor(clickPrice); // put the clickPRice in the upgradeButton
 
 document.getElementById("clickButton").addEventListener("click", () => { // when the button is clicked
   clicks = Click(clicks, clickBoost); // increase clicks
@@ -19,15 +19,16 @@ document.getElementById("clickButton").addEventListener("click", () => { // when
 })
 
 document.getElementById("upgradeButton").addEventListener("click", () => {
-  if(clicks => clickPrice){ // if you have more or same amount of clicks as the price
+  if(clicks >= clickPrice){ // if you have more or same amount of clicks as the price
     clickPrice = clickPrice + (clickPrice/100*20); // increase the price by 20%
-    clicks = clicks - math.Floor(clickPrice); // subtract the price from the clicks
-    document.getElementById("upgradeButton").innerHTML = "Upgrade. Cost: " + clickPrice; // update the price in the button
+    clicks = clicks - Math.floor(clickPrice); // subtract the price from the clicks
+    document.getElementById("upgradeButton").innerHTML = "Upgrade. Cost: " + Math.floor(clickPrice); // update the price in the button
     document.getElementById("clickBox").innerHTML = clicks; // update the clicks in the h1
     clickBoost++; // increase clickBoost by 1
 
+    document.cookie = `cums=${clicks};expires=Sun, 09 2069 00:04:20 UTC`;
     document.cookie = `cumgrades=${clickBoost};expires=Sun, 09 Jun 2069 00:04:20 UTC`; // put the upgrades in a cookie for saving it
-    document.cookie = `clickCost=${clickprice};expires=Sun, 09 Jun 2069 00:04:20 UTC`; // put the clickPrice in a cookie for saving it
+    document.cookie = `clickCost=${Math.floor(clickPrice)};expires=Sun, 09 Jun 2069 00:04:20 UTC`; // put the clickPrice in a cookie for saving it
   }
 })
 
